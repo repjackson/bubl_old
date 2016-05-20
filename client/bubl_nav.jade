@@ -1,6 +1,6 @@
 template(name='nav')
     .ui.borderless.menu
-        .ui.header.item
+        a.ui.header.item(href='/' class="{{isActivePath '/'}}")
             |Bubble
         .right.menu
             if currentUser

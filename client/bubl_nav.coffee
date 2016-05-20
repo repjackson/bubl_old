@@ -66,3 +66,7 @@ Template.nav.events
                 if searchTerm is ''
                     selectedTags.pop()
 
+    'click #addDoc': ->
+        Meteor.call 'createDoc', (err, id)->
+            if err then console.log err
+            else FlowRouter.go "/edit/#{id}"

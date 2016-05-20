@@ -1,3 +1,9 @@
+Docs.allow
+    insert: (userId, doc)-> doc.authorId is Meteor.userId()
+    update: (userId, doc)-> doc.authorId is Meteor.userId()
+    remove: (userId, doc)-> doc.authorId is Meteor.userId()
+
+
 Meteor.publish 'person', (id)->
     Meteor.users.find id,
         fields:
@@ -90,3 +96,6 @@ Meteor.publish 'tags', (selectedTags)->
             index: i
 
     self.ready()
+
+
+Meteor.publish 'doc', (id)-> Docs.find id

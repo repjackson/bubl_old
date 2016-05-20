@@ -1,6 +1,8 @@
 @Peopletags = new Meteor.Collection 'people_tags'
 @Messages = new Meteor.Collection 'messages'
 @Docs = new Meteor.Collection 'docs'
+@Tags = new Meteor.Collection 'tags'
+
 
 Docs.before.insert (userId, doc)->
     doc.up_voters = [userId]
@@ -13,7 +15,10 @@ Docs.before.insert (userId, doc)->
 
 Docs.after.update ((userId, doc, fieldNames, modifier, options) ->
     doc.tagCount = doc.tags.length
+    Meteor.call 'generatePersonalCloud', Meteor.userId()
 ), fetchPrevious: true
+
+
 
 Messages.helpers
     author: -> Meteor.users.findOne @authorId
@@ -27,6 +32,11 @@ Docs.helpers
 
 
 Meteor.methods
+    createDoc: (tags=[])->
+        Docs.insert
+            tags: tags
+
+
     delete_doc: (id)->
         Docs.remove id
 
@@ -169,3 +179,7 @@ FlowRouter.route '/messages', action: (params) ->
 # FlowRouter.route '/editConversation/:docId', action: (params) ->
 #     BlazeLayout.render 'layout',
 #         main: 'conversation'
+
+FlowRouter.route '/edit/:docId', action: (params) ->
+    BlazeLayout.render 'layout',
+        main: 'edit'

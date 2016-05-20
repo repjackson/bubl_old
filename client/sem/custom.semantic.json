@@ -28,7 +28,7 @@
     "loader": true,
     "menu": true,
     "message": true,
-    "modal": false,
+    "modal": true,
     "nag": false,
     "popup": false,
     "progress": true,
