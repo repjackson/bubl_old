@@ -1,0 +1,54 @@
+template(name='docs')
+    .ui.container
+        // .ui.center.aligned.header Top Doc:
+        .ui.cards
+            each docs
+                +view
+
+template(name='view')
+    .ui.fluid.card
+        .content
+            .header
+                each tags
+                    .ui.compact.button.doc_tag(class=doc_tag_class)  #{this}
+        .extra.content
+            span by #{author.username} [#{author.points} points] #{when}
+            if currentUser
+                .ui.basic.compact.button.cloneDoc
+                    i.fork.icon
+                    |Clone
+                if isAuthor
+                    .ui.basic.compact.button.editDoc
+                        i.blue.pencil.icon
+                        |Edit
+                    .ui.icon.basic.compact.button.deleteDoc
+                        // |Delete
+                        i.red.trash.icon
+                // else
+                //     .ui.large.icon.button.vote_up(class=vote_upButtonClass)
+                //         i.thumbs.up.icon
+                //     .ui.large.icon.button.vote_down(class=vote_downButtonClass)
+                //         i.thumbs.down.icon
+        // if currentUser
+            // .extra.content
+            //     .ui.button.findTopDocMatches Find Top Matches
+            //     p #{_id}
+            //     each topDocMatches
+            //         p #{this.docId}
+            //         p #{this.intersectionTags}
+
+        //     if currentUser
+        //         unless isAuthor
+        //             p Common interests with #{author.username} (Match Points: #{upVotedMatchCloud.totalCount})
+        //             div
+        //                 each upVotedMatchCloud.cloud
+        //                     .ui.basic.label #{this.tag} #{this.min}
+        // .extra.content
+        //     .select_user.ui.button(class=select_user_button_class)
+        //         i.user.icon
+        //         |View Docs by #{author.username}
+        //     |#{author.username}'s Authored Tags
+        //     each author.authored_cloud
+        //         .ui.small.label(class=cloud_label_class)
+        //             |#{this.name}
+        //             small #{this.count}

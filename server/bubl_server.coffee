@@ -99,3 +99,15 @@ Meteor.publish 'tags', (selectedTags)->
 
 
 Meteor.publish 'doc', (id)-> Docs.find id
+
+
+Meteor.publish 'docs', (selectedtags)->
+    match = {}
+    match.tagCount = $gt: 0
+    if selectedtags.length > 0 then match.tags = $all: selectedtags
+
+    Docs.find match,
+        limit: 5
+        sort:
+            tagCount: 1
+            timestamp: -1

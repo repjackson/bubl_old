@@ -1,11 +1,11 @@
 template(name='cloud')
     .ui.center.aligned.segment
-        if selectedtags
-            #cleartags.ui.active.big.compact.icon.button
+        if selected_tags
+            #cleartags.ui.primary.big.compact.icon.button
                 i.remove.icon
-        if selectedtags
-            each selectedtags
-                a.ui.active.big.compact.button.unselecttag
+        if selected_tags
+            each selected_tags
+                a.ui.primary.big.compact.button.unselecttag
                     strong #{this}
         each globaltags
             .ui.compact.basic.button.selecttag(class=globaltagClass) #{this.name}
