@@ -70,3 +70,17 @@ Template.nav.events
         Meteor.call 'createDoc', (err, id)->
             if err then console.log err
             else FlowRouter.go "/edit/#{id}"
+
+    'keyup #quickAdd': (e,t)->
+        e.preventDefault
+        tag = $('#quickAdd').val().toLowerCase()
+        switch e.which
+            when 13
+                if tag.length > 0
+                    splitTags = tag.match(/\S+/g)
+                    $('#quickAdd').val('')
+                    Meteor.call 'createDoc', splitTags
+                    selected_tags.clear()
+                    for tag in splitTags
+                        selected_tags.push tag
+                    # FlowRouter.go '/'

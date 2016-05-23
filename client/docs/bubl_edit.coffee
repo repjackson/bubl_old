@@ -16,7 +16,7 @@ Template.edit.events
             onApprove: ->
                 Meteor.call 'deleteDoc', FlowRouter.getParam('docId'), ->
                 $('.ui.modal').modal('hide')
-                FlowRouter.go '/docs'
+                FlowRouter.go '/'
         	).modal 'show'
 
 

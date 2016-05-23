@@ -12,11 +12,11 @@ template(name='view')
                 each tags
                     .ui.compact.button.doc_tag(class=doc_tag_class)  #{this}
         .extra.content
-            span by #{author.username} [#{author.points} points] #{when}
+            span by #{author.username} #{when}
             if currentUser
-                .ui.basic.compact.button.cloneDoc
-                    i.fork.icon
-                    |Clone
+                // .ui.basic.compact.button.cloneDoc
+                //     i.fork.icon
+                //     |Clone
                 if isAuthor
                     .ui.basic.compact.button.edit_doc
                         i.blue.pencil.icon

@@ -1,12 +1,16 @@
 template(name='nav')
-    .ui.borderless.menu
+    .ui.menu
         a.ui.header.item(href='/' class="{{isActivePath '/'}}")
             |Bubl
         .right.menu
             if currentUser
-                a#addDoc.item
-                    i.plus.icon
-                    |Add
+                // a#addDoc.item
+                //     i.plus.icon
+                //     |Add
+                .item
+                    .ui.transparent.icon.input
+                        i.plus.icon
+                        input#quickAdd(type='text' autofocus='' placeholder='Add...')
                 // .ui.simple.dropdown.item
                 //     i.plus.icon
                 //     span.text Add Doc
@@ -24,9 +28,9 @@ template(name='nav')
                     //             each this
                     //                 .ui.label #{this}
 
-                a.item(href='/profile' class="{{isActivePath '/profile'}}")
-                    i.user.icon
-                    | #{user.username}
+                // a.item(href='/profile' class="{{isActivePath '/profile'}}")
+                //     i.user.icon
+                //     | #{user.username}
                 // a.item(href='/messages' class="{{isActivePath '/messages'}}")
                 //     i.mail.icon
             +atNavButton
