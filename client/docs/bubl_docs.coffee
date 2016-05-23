@@ -33,13 +33,13 @@ Template.view.helpers
 
 
 Template.view.events
-    'click .editDoc': -> FlowRouter.go "/edit/#{@_id}"
+    'click .edit_doc': -> FlowRouter.go "/edit/#{@_id}"
 
     'click .doc_tag': -> if @valueOf() in selected_tags.array() then selected_tags.remove @valueOf() else selected_tags.push @valueOf()
 
-    'click .deleteDoc': ->
+    'click .delete_doc': ->
         if confirm 'Delete?'
-            Meteor.call 'deleteDoc', @_id
+            Meteor.call 'delete_doc', @_id
 
     'click .authorFilterButton': ->
         if @username in selectedUsernames.array() then selectedUsernames.remove @username else selectedUsernames.push @username
@@ -48,7 +48,6 @@ Template.view.events
         # if confirm 'Clone?'
         id = Docs.insert
             tags: @tags
-            body: @body
         FlowRouter.go "/edit/#{id}"
 
 

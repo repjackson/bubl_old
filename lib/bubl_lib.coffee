@@ -1,16 +1,12 @@
-@Peopletags = new Meteor.Collection 'people_tags'
-@Messages = new Meteor.Collection 'messages'
 @Docs = new Meteor.Collection 'docs'
 @Tags = new Meteor.Collection 'tags'
 
 
 Docs.before.insert (userId, doc)->
-    doc.up_voters = [userId]
-    doc.down_voters = []
+    doc.app = 'bubl'
     doc.timestamp = Date.now()
     doc.authorId = Meteor.userId()
     doc.username = Meteor.user().username
-    doc.points = 1
     return
 
 Docs.after.update ((userId, doc, fieldNames, modifier, options) ->
@@ -20,10 +16,6 @@ Docs.after.update ((userId, doc, fieldNames, modifier, options) ->
 
 
 
-Messages.helpers
-    author: -> Meteor.users.findOne @authorId
-    recipient: -> Meteor.users.findOne @recipientId
-    when: -> moment(@timestamp).fromNow()
 
 Docs.helpers
     author: -> Meteor.users.findOne @authorId
@@ -32,9 +24,8 @@ Docs.helpers
 
 
 Meteor.methods
-    createDoc: (tags=[])->
-        Docs.insert
-            tags: tags
+    createDoc: ()->
+        Docs.insert({})
 
 
     delete_doc: (id)->
@@ -55,20 +46,6 @@ Meteor.methods
         else
             Meteor.users.update Meteor.userId(),
                 $set: username: username
-
-    send_message: (body, recipientId) ->
-        Messages.insert
-            timestamp: Date.now()
-            authorId: Meteor.userId()
-            body: body
-            recipientId: recipientId
-
-    add_message: (text, conversationId) ->
-        Messages.insert
-            timestamp: Date.now()
-            authorId: Meteor.userId()
-            text: text
-            conversationId: conversationId
 
 
 AccountsTemplates.configure
@@ -146,15 +123,6 @@ FlowRouter.route '/profile', action: (params) ->
         nav: 'nav'
         main: 'profile'
 
-FlowRouter.route '/messages', action: (params) ->
-    BlazeLayout.render 'layout',
-        nav: 'nav'
-        main: 'messagePage'
-
-
-# FlowRouter.route '/editConversation/:docId', action: (params) ->
-#     BlazeLayout.render 'layout',
-#         main: 'conversation'
 
 FlowRouter.route '/edit/:docId', action: (params) ->
     BlazeLayout.render 'layout',
