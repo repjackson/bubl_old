@@ -1,16 +1,24 @@
 template(name='nav')
-    .ui.menu
+    .ui.stackable.menu
         a.ui.header.item(href='/' class="{{isActivePath '/'}}")
             |Bubl
+        // .item
+        //     .ui.transparent.icon.input
+        //         i.search.icon
+        //         input#search(type='text' placeholder="Search/'clear'" autofocus='')
+        .item
+            .ui.transparent.icon.input
+                i.search.icon
+                +inputAutocomplete(settings=tagsettings id='tagsearch' class='' placeholder="Search/'[c]lear'")
+        if currentUser
+            .item
+                .ui.transparent.icon.input
+                    i.plus.icon
+                    input#quickAdd(type='text' placeholder='Add')
         .right.menu
-            if currentUser
                 // a#addDoc.item
                 //     i.plus.icon
                 //     |Add
-                .item
-                    .ui.transparent.icon.input
-                        i.plus.icon
-                        input#quickAdd(type='text' autofocus='' placeholder='Add...')
                 // .ui.simple.dropdown.item
                 //     i.plus.icon
                 //     span.text Add Doc

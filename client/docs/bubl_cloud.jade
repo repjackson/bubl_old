@@ -9,4 +9,9 @@ template(name='cloud')
                     strong #{this}
         each globaltags
             .ui.compact.basic.button.selecttag(class=globaltagClass) #{this.name}
-                small #{this.count}
+                // small #{this.count}
+
+
+template(name='tagresult')
+    .ui.basic.label #{name}
+        small (#{count})
